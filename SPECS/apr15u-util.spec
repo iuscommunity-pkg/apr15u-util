@@ -1,3 +1,5 @@
+%global real_name apr-util
+%global ius_suffix 15u
 
 %if 0%{?fedora} < 18 && 0%{?rhel} < 7
 %define dbdep db4-devel
@@ -14,19 +16,25 @@
 %define apuver 1
 
 Summary: Apache Portable Runtime Utility library
-Name: apr-util
+Name: apr%{ius_suffix}-util
 Version: 1.5.4
-Release: 1%{?dist}
+Release: 1.ius%{?dist}
 License: ASL 2.0
 Group: System Environment/Libraries
 URL: http://apr.apache.org/
-Source0: http://www.apache.org/dist/apr/%{name}-%{version}.tar.bz2
+Source0: http://www.apache.org/dist/apr/%{real_name}-%{version}.tar.bz2
 Patch1: apr-util-1.2.7-pkgconf.patch
 Patch2: apr-util-1.3.7-nodbmdso.patch
 Patch4: apr-util-1.4.1-private.patch
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildRequires: autoconf, apr-devel >= 1.3.0
-BuildRequires: %{dbdep}, expat-devel, libuuid-devel
+BuildRequires: autoconf
+BuildRequires: apr-devel >= 1.3.0
+BuildRequires: %{dbdep}
+BuildRequires: expat-devel
+BuildRequires: libuuid-devel
+Provides: %{real_name} = %{version}-%{release}
+Provides: %{real_name}%{?_isa} = %{version}-%{release}
+Conflicts: %{real_name} < %{version}
+
 
 %description
 The mission of the Apache Portable Runtime (APR) is to provide a
@@ -34,104 +42,135 @@ free library of C data structures and routines.  This library
 contains additional utility interfaces for APR; including support
 for XML, LDAP, database interfaces, URI parsing and more.
 
+
 %package devel
 Group: Development/Libraries
 Summary: APR utility library development kit
-Requires: apr-util%{?_isa} = %{version}-%{release}, apr-devel%{?_isa}, pkgconfig
-Requires: %{dbdep}%{?_isa}, expat-devel%{?_isa}, openldap-devel%{?_isa}
-
+Requires: apr-util%{?_isa} = %{version}-%{release}
+Requires: apr-devel%{?_isa}
+Requires: pkgconfig
+Requires: %{dbdep}%{?_isa}
+Requires: expat-devel%{?_isa}
+Requires: openldap-devel%{?_isa}
+Provides: %{real_name}-devel = %{version}-%{release}
+Provides: %{real_name}-devel%{?_isa} = %{version}-%{release}
+Conflicts: %{real_name}-devel < %{version}
 %description devel
 This package provides the support files which can be used to 
 build applications using the APR utility library.  The mission 
 of the Apache Portable Runtime (APR) is to provide a free 
 library of C data structures and routines.
 
+
 %package pgsql
 Group: Development/Libraries
 Summary: APR utility library PostgreSQL DBD driver
 BuildRequires: postgresql-devel
 Requires: apr-util%{?_isa} = %{version}-%{release}
-
+Provides: %{real_name}-pgsql = %{version}-%{release}
+Provides: %{real_name}-pgsql%{?_isa} = %{version}-%{release}
+Conflicts: %{real_name}-pgsql < %{version}
 %description pgsql
 This package provides the PostgreSQL driver for the apr-util
 DBD (database abstraction) interface.
+
 
 %package mysql
 Group: Development/Libraries
 Summary: APR utility library MySQL DBD driver
 BuildRequires: mysql-devel
 Requires: apr-util%{?_isa} = %{version}-%{release}
-
+Provides: %{real_name}-mysql = %{version}-%{release}
+Provides: %{real_name}-mysql%{?_isa} = %{version}-%{release}
+Conflicts: %{real_name}-mysql < %{version}
 %description mysql
 This package provides the MySQL driver for the apr-util DBD
 (database abstraction) interface.
+
 
 %package sqlite
 Group: Development/Libraries
 Summary: APR utility library SQLite DBD driver
 BuildRequires: sqlite-devel >= 3.0.0
 Requires: apr-util%{?_isa} = %{version}-%{release}
-
+Provides: %{real_name}-sqlite = %{version}-%{release}
+Provides: %{real_name}-sqlite%{?_isa} = %{version}-%{release}
+Conflicts: %{real_name}-sqlite < %{version}
 %description sqlite
 This package provides the SQLite driver for the apr-util DBD
 (database abstraction) interface.
 
-%if %{with_freetds}
 
+%if %{with_freetds}
 %package freetds
 Group: Development/Libraries
 Summary: APR utility library FreeTDS DBD driver
 BuildRequires: freetds-devel
 Requires: apr-util%{?_isa} = %{version}-%{release}
-
+Provides: %{real_name}-freetds = %{version}-%{release}
+Provides: %{real_name}-freetds%{?_isa} = %{version}-%{release}
+Conflicts: %{real_name}-freetds < %{version}
 %description freetds
 This package provides the FreeTDS driver for the apr-util DBD
 (database abstraction) interface.
-
 %endif
+
 
 %package odbc
 Group: Development/Libraries
 Summary: APR utility library ODBC DBD driver
 BuildRequires: unixODBC-devel
 Requires: apr-util%{?_isa} = %{version}-%{release}
-
+Provides: %{real_name}-odbc = %{version}-%{release}
+Provides: %{real_name}-odbc%{?_isa} = %{version}-%{release}
+Conflicts: %{real_name}-odbc < %{version}
 %description odbc
 This package provides the ODBC driver for the apr-util DBD
 (database abstraction) interface.
+
 
 %package ldap
 Group: Development/Libraries
 Summary: APR utility library LDAP support
 BuildRequires: openldap-devel
 Requires: apr-util%{?_isa} = %{version}-%{release}
-
+Provides: %{real_name}-ldap = %{version}-%{release}
+Provides: %{real_name}-ldap%{?_isa} = %{version}-%{release}
+Conflicts: %{real_name}-ldap < %{version}
 %description ldap
 This package provides the LDAP support for the apr-util.
+
 
 %package openssl
 Group: Development/Libraries
 Summary: APR utility library OpenSSL crytpo support
 BuildRequires: openssl-devel
 Requires: apr-util%{?_isa} = %{version}-%{release}
-
+Provides: %{real_name}-openssl = %{version}-%{release}
+Provides: %{real_name}-openssl%{?_isa} = %{version}-%{release}
+Conflicts: %{real_name}-openssl < %{version}
 %description openssl
 This package provides the OpenSSL crypto support for the apr-util.
+
 
 %package nss
 Group: Development/Libraries
 Summary: APR utility library NSS crytpo support
 BuildRequires: nss-devel
 Requires: apr-util%{?_isa} = %{version}-%{release}
-
+Provides: %{real_name}-nss = %{version}-%{release}
+Provides: %{real_name}-nss%{?_isa} = %{version}-%{release}
+Conflicts: %{real_name}-nss < %{version}
 %description nss
 This package provides the NSS crypto support for the apr-util.
 
+
 %prep
-%setup -q
+%setup -q -n %{real_name}-%{version}
 %patch1 -p1 -b .pkgconf
 %patch2 -p1 -b .nodbmdso
 %patch4 -p1 -b .private
+
 
 %build
 autoheader && autoconf
@@ -152,8 +191,8 @@ export ac_cv_ldap_set_rebind_proc_style=three
         --with-crypto --with-openssl --with-nss
 make %{?_smp_mflags}
 
+
 %install
-rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/aclocal
@@ -175,6 +214,7 @@ sed -ri '/^dependency_libs/{s,-l(pq|sqlite[0-9]|rt|dl|uuid) ,,g}' \
 # Trim libtool DSO cruft
 rm -f $RPM_BUILD_ROOT%{_libdir}/apr-util-%{apuver}/*.*a
 
+
 %check
 # Run the less verbose test suites
 export MALLOC_CHECK_=2 MALLOC_PERTURB_=$(($RANDOM % 255 + 1))
@@ -186,57 +226,45 @@ export LD_LIBRARY_PATH="`echo "../dbm/.libs:../dbd/.libs:../ldap/.libs:$LD_LIBRA
 ./testall testrmm
 ./testall testdbm
 
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %post -p /sbin/ldconfig
 
+
 %postun -p /sbin/ldconfig
 
+
 %files
-%defattr(-,root,root,-)
 %doc CHANGES LICENSE NOTICE
 %{_libdir}/libaprutil-%{apuver}.so.*
 %dir %{_libdir}/apr-util-%{apuver}
 
 %files pgsql
-%defattr(-,root,root,-)
 %{_libdir}/apr-util-%{apuver}/apr_dbd_pgsql*
 
 %files mysql
-%defattr(-,root,root,-)
 %{_libdir}/apr-util-%{apuver}/apr_dbd_mysql*
 
 %files sqlite
-%defattr(-,root,root,-)
 %{_libdir}/apr-util-%{apuver}/apr_dbd_sqlite*
 
 %if %{with_freetds}
-
 %files freetds
-%defattr(-,root,root,-)
 %{_libdir}/apr-util-%{apuver}/apr_dbd_freetds*
-
 %endif
 
 %files odbc
-%defattr(-,root,root,-)
 %{_libdir}/apr-util-%{apuver}/apr_dbd_odbc*
 
 %files ldap
-%defattr(-,root,root,-)
 %{_libdir}/apr-util-%{apuver}/apr_ldap*
 
 %files openssl
-%defattr(-,root,root,-)
 %{_libdir}/apr-util-%{apuver}/apr_crypto_openssl*
 
 %files nss
-%defattr(-,root,root,-)
 %{_libdir}/apr-util-%{apuver}/apr_crypto_nss*
 
 %files devel
-%defattr(-,root,root,-)
 %{_bindir}/apu-%{apuver}-config
 %{_libdir}/libaprutil-%{apuver}.*a
 %{_libdir}/libaprutil-%{apuver}.so
@@ -244,7 +272,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/*.pc
 %{_datadir}/aclocal/*.m4
 
+
 %changelog
+* Mon Dec 22 2014 Carl George <carl.george@rackspace.com> - 1.5.4-1.ius
+- Initial port to IUS
+
 * Mon Sep 22 2014 Jan Kaluza <jkaluza@redhat.com> - 1.5.4-1
 - update to 1.5.4
 
