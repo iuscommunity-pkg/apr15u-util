@@ -73,7 +73,11 @@ DBD (database abstraction) interface.
 %package mysql
 Group: Development/Libraries
 Summary: APR utility library MySQL DBD driver
+%if 0%{?rhel} < 7
 BuildRequires: mysql-devel < 5.5
+%else
+BuildRequires: mysql-devel
+%endif
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Conflicts: %{real_name}-mysql < %{version}
 %description mysql
