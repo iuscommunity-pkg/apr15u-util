@@ -18,7 +18,7 @@
 Summary: Apache Portable Runtime Utility library
 Name: apr%{ius_suffix}-util
 Version: 1.5.4
-Release: 1.ius%{?dist}
+Release: 2.ius%{?dist}
 License: ASL 2.0
 Group: System Environment/Libraries
 URL: http://apr.apache.org/
@@ -255,6 +255,11 @@ export LD_LIBRARY_PATH="`echo "../dbm/.libs:../dbd/.libs:../ldap/.libs:$LD_LIBRA
 
 
 %changelog
+* Thu Jan 08 2015 Carl George <carl.george@rackspace.com> - 1.5.4-2.ius
+- Remove extra provides to correct dependency resolution
+- Explictly require the IUS versions of apr and apr-devel
+- Ensure the mysql subpackage builds against stock mysql-devel
+
 * Mon Dec 22 2014 Carl George <carl.george@rackspace.com> - 1.5.4-1.ius
 - Initial port to IUS
 
