@@ -48,7 +48,7 @@ for XML, LDAP, database interfaces, URI parsing and more.
 Group: Development/Libraries
 Summary: APR utility library development kit
 Requires: apr-util%{?_isa} = %{version}-%{release}
-Requires: apr-devel%{?_isa}
+Requires: apr%{ius_suffix}-devel%{?_isa}
 Requires: pkgconfig
 Requires: %{dbdep}%{?_isa}
 Requires: expat-devel%{?_isa}
