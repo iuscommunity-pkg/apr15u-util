@@ -31,6 +31,7 @@ BuildRequires: apr%{ius_suffix}-devel
 BuildRequires: %{dbdep}
 BuildRequires: expat-devel
 BuildRequires: libuuid-devel
+Requires: apr%{ius_suffix}%{?_isa}
 Provides: %{real_name} = %{version}-%{release}
 Provides: %{real_name}%{?_isa} = %{version}-%{release}
 Conflicts: %{real_name} < %{version}
