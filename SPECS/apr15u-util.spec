@@ -27,7 +27,7 @@ Patch1: apr-util-1.2.7-pkgconf.patch
 Patch2: apr-util-1.3.7-nodbmdso.patch
 Patch4: apr-util-1.4.1-private.patch
 BuildRequires: autoconf
-BuildRequires: apr-devel >= 1.3.0
+BuildRequires: apr%{ius_suffix}-devel
 BuildRequires: %{dbdep}
 BuildRequires: expat-devel
 BuildRequires: libuuid-devel
