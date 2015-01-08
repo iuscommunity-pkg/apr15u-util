@@ -32,8 +32,6 @@ BuildRequires: %{dbdep}
 BuildRequires: expat-devel
 BuildRequires: libuuid-devel
 Requires: apr%{ius_suffix}%{?_isa}
-Provides: %{real_name} = %{version}-%{release}
-Provides: %{real_name}%{?_isa} = %{version}-%{release}
 Conflicts: %{real_name} < %{version}
 
 
@@ -53,8 +51,6 @@ Requires: pkgconfig
 Requires: %{dbdep}%{?_isa}
 Requires: expat-devel%{?_isa}
 Requires: openldap-devel%{?_isa}
-Provides: %{real_name}-devel = %{version}-%{release}
-Provides: %{real_name}-devel%{?_isa} = %{version}-%{release}
 Conflicts: %{real_name}-devel < %{version}
 %description devel
 This package provides the support files which can be used to 
@@ -68,8 +64,6 @@ Group: Development/Libraries
 Summary: APR utility library PostgreSQL DBD driver
 BuildRequires: postgresql-devel
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Provides: %{real_name}-pgsql = %{version}-%{release}
-Provides: %{real_name}-pgsql%{?_isa} = %{version}-%{release}
 Conflicts: %{real_name}-pgsql < %{version}
 %description pgsql
 This package provides the PostgreSQL driver for the apr-util
@@ -81,8 +75,6 @@ Group: Development/Libraries
 Summary: APR utility library MySQL DBD driver
 BuildRequires: mysql-devel < 5.5
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Provides: %{real_name}-mysql = %{version}-%{release}
-Provides: %{real_name}-mysql%{?_isa} = %{version}-%{release}
 Conflicts: %{real_name}-mysql < %{version}
 %description mysql
 This package provides the MySQL driver for the apr-util DBD
@@ -94,8 +86,6 @@ Group: Development/Libraries
 Summary: APR utility library SQLite DBD driver
 BuildRequires: sqlite-devel >= 3.0.0
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Provides: %{real_name}-sqlite = %{version}-%{release}
-Provides: %{real_name}-sqlite%{?_isa} = %{version}-%{release}
 Conflicts: %{real_name}-sqlite < %{version}
 %description sqlite
 This package provides the SQLite driver for the apr-util DBD
@@ -108,8 +98,6 @@ Group: Development/Libraries
 Summary: APR utility library FreeTDS DBD driver
 BuildRequires: freetds-devel
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Provides: %{real_name}-freetds = %{version}-%{release}
-Provides: %{real_name}-freetds%{?_isa} = %{version}-%{release}
 Conflicts: %{real_name}-freetds < %{version}
 %description freetds
 This package provides the FreeTDS driver for the apr-util DBD
@@ -122,8 +110,6 @@ Group: Development/Libraries
 Summary: APR utility library ODBC DBD driver
 BuildRequires: unixODBC-devel
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Provides: %{real_name}-odbc = %{version}-%{release}
-Provides: %{real_name}-odbc%{?_isa} = %{version}-%{release}
 Conflicts: %{real_name}-odbc < %{version}
 %description odbc
 This package provides the ODBC driver for the apr-util DBD
@@ -135,8 +121,6 @@ Group: Development/Libraries
 Summary: APR utility library LDAP support
 BuildRequires: openldap-devel
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Provides: %{real_name}-ldap = %{version}-%{release}
-Provides: %{real_name}-ldap%{?_isa} = %{version}-%{release}
 Conflicts: %{real_name}-ldap < %{version}
 %description ldap
 This package provides the LDAP support for the apr-util.
@@ -147,8 +131,6 @@ Group: Development/Libraries
 Summary: APR utility library OpenSSL crytpo support
 BuildRequires: openssl-devel
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Provides: %{real_name}-openssl = %{version}-%{release}
-Provides: %{real_name}-openssl%{?_isa} = %{version}-%{release}
 Conflicts: %{real_name}-openssl < %{version}
 %description openssl
 This package provides the OpenSSL crypto support for the apr-util.
@@ -159,8 +141,6 @@ Group: Development/Libraries
 Summary: APR utility library NSS crytpo support
 BuildRequires: nss-devel
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Provides: %{real_name}-nss = %{version}-%{release}
-Provides: %{real_name}-nss%{?_isa} = %{version}-%{release}
 Conflicts: %{real_name}-nss < %{version}
 %description nss
 This package provides the NSS crypto support for the apr-util.
