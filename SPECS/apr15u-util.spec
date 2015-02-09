@@ -29,6 +29,7 @@ Source0: http://www.apache.org/dist/apr/%{real_name}-%{version}.tar.bz2
 Patch1: apr-util-1.2.7-pkgconf.patch
 Patch2: apr-util-1.3.7-nodbmdso.patch
 Patch4: apr-util-1.4.1-private.patch
+Patch5: apr-util-1.5.4-iusname.patch
 BuildRequires: autoconf
 BuildRequires: apr%{ius_suffix}-devel
 BuildRequires: %{dbdep}
@@ -148,6 +149,7 @@ This package provides the NSS crypto support for the %{apr}-util.
 %patch1 -p1 -b .pkgconf
 %patch2 -p1 -b .nodbmdso
 %patch4 -p1 -b .private
+%patch5 -p1 -b .iusname
 
 
 %build

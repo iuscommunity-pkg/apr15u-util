@@ -1,0 +1,94 @@
+diff -Naur a/apu-config.in b/apu-config.in
+--- a/apu-config.in	2010-09-29 09:21:25.000000000 -0500
++++ b/apu-config.in	2015-02-09 15:04:24.881965642 -0600
+@@ -46,7 +46,7 @@
+ show_usage()
+ {
+     cat << EOF
+-Usage: apu-$APRUTIL_MAJOR_VERSION-config [OPTION]
++Usage: apu15u-$APRUTIL_MAJOR_VERSION-config [OPTION]
+ 
+ Known values for OPTION are:
+   --prefix[=DIR]    change prefix to DIR
+@@ -69,9 +69,9 @@
+   --help            print this help
+ 
+ When linking with libtool, an application should do something like:
+-  APU_LIBS="\`apu-$APRUTIL_MAJOR_VERSION-config --link-libtool --libs\`"
++  APU_LIBS="\`apu15u-$APRUTIL_MAJOR_VERSION-config --link-libtool --libs\`"
+ or when linking directly:
+-  APU_LIBS="\`apu-$APRUTIL_MAJOR_VERSION-config --link-ld --libs\`"
++  APU_LIBS="\`apu15u-$APRUTIL_MAJOR_VERSION-config --link-ld --libs\`"
+ 
+ An application should use the results of --includes, and --ldflags in
+ their build process.
+diff -Naur a/build/pkg/pkginfo.in b/build/pkg/pkginfo.in
+--- a/build/pkg/pkginfo.in	2005-01-06 15:39:49.000000000 -0600
++++ b/build/pkg/pkginfo.in	2015-02-09 16:31:35.590031594 -0600
+@@ -1,5 +1,5 @@
+-PKG="ASFapu-1"
+-NAME="apr-util"
++PKG="ASFapu15u-1"
++NAME="apr15u-util"
+ ARCH="@target_cpu@"
+ VERSION="@APRUTIL_DOTTED_VERSION@"
+ CATEGORY="application"
+diff -Naur a/configure.in b/configure.in
+--- a/configure.in	2012-08-14 07:20:54.000000000 -0500
++++ b/configure.in	2015-02-09 15:06:29.664149185 -0600
+@@ -193,11 +193,11 @@
+ AC_SUBST(so_ext)
+ AC_SUBST(lib_target)
+ 
+-APRUTIL_LIBNAME="aprutil${libsuffix}"
++APRUTIL_LIBNAME="apr15uutil${libsuffix}"
+ AC_SUBST(APRUTIL_LIBNAME)
+ 
+ # Set up destination directory for DSOs.
+-APU_DSO_LIBDIR="\${libdir}/apr-util-${APRUTIL_MAJOR_VERSION}"
++APU_DSO_LIBDIR="\${libdir}/apr15u-util-${APRUTIL_MAJOR_VERSION}"
+ # Set APU_HAVE_MODULES appropriately for the Makefile
+ if test -n "$APU_MODULES"; then 
+    APU_HAVE_MODULES=yes
+@@ -274,13 +274,13 @@
+ 
+ AC_CONFIG_FILES([Makefile export_vars.sh
+                  build/pkg/pkginfo apr-util.pc
+-                 apu-$APRUTIL_MAJOR_VERSION-config:apu-config.in
++                 apu15u-$APRUTIL_MAJOR_VERSION-config:apu-config.in
+                  include/private/apu_select_dbm.h
+                  include/apr_ldap.h
+                  include/apu.h include/apu_want.h])
+ 
+ AC_CONFIG_COMMANDS([default], [
+-chmod +x apu-$APRUTIL_MAJOR_VERSION-config
++chmod +x apu15u-$APRUTIL_MAJOR_VERSION-config
+ ],[
+ APRUTIL_MAJOR_VERSION=$APRUTIL_MAJOR_VERSION
+ ])
+diff -Naur a/libaprutil.rc b/libaprutil.rc
+--- a/libaprutil.rc	2013-05-26 19:24:48.000000000 -0500
++++ b/libaprutil.rc	2015-02-09 15:08:08.167925858 -0600
+@@ -18,7 +18,7 @@
+ #define APU_DLL_BASENAME APU_STRINGIFY(DLL_NAME) "-" APU_STRINGIFY(APU_MAJOR_VERSION)
+ #define APU_DLL_DESCRIPTION "Apache Portable Runtime " APU_STRINGIFY(DLL_NAME) " Module"
+ #else
+-#define APU_DLL_BASENAME "libaprutil-" APU_STRINGIFY(APU_MAJOR_VERSION)
++#define APU_DLL_BASENAME "libapr15uutil-" APU_STRINGIFY(APU_MAJOR_VERSION)
+ #define APU_DLL_DESCRIPTION "Apache Portable Runtime Utility Library"
+ #endif
+ 
+diff -Naur a/Makefile.in b/Makefile.in
+--- a/Makefile.in	2008-11-21 00:30:43.000000000 -0600
++++ b/Makefile.in	2015-02-09 15:09:30.400069800 -0600
+@@ -17,8 +17,8 @@
+ TARGET_LIB = lib@APRUTIL_LIBNAME@.la
+ INSTALL_SUBDIRS = @APR_ICONV_DIR@ @APR_XML_DIR@
+ EXTRA_SOURCE_DIRS = @APR_ICONV_DIR@ @APR_XML_DIR@
+-APRUTIL_PCFILE = apr-util-$(APRUTIL_MAJOR_VERSION).pc
+-APU_CONFIG = apu-$(APRUTIL_MAJOR_VERSION)-config
++APRUTIL_PCFILE = apr15u-util-$(APRUTIL_MAJOR_VERSION).pc
++APU_CONFIG = apu15u-$(APRUTIL_MAJOR_VERSION)-config
+ INSTALL = @INSTALL@
+ INSTALL_DATA = @INSTALL_DATA@
+ 
