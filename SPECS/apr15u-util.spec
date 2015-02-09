@@ -1,5 +1,7 @@
 %global real_name apr-util
 %global ius_suffix 15u
+%global apr apr%{ius_suffix}
+%global apu apu%{ius_suffix}
 
 %if 0%{?fedora} < 18 && 0%{?rhel} < 7
 %define dbdep db4-devel
@@ -13,10 +15,11 @@
 %define with_freetds 1
 %endif
 
+%define aprver 1
 %define apuver 1
 
 Summary: Apache Portable Runtime Utility library
-Name: apr%{ius_suffix}-util
+Name: %{apr}-util
 Version: 1.5.4
 Release: 2.ius%{?dist}
 License: ASL 2.0
@@ -66,7 +69,7 @@ BuildRequires: postgresql-devel
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Conflicts: %{real_name}-pgsql < %{version}
 %description pgsql
-This package provides the PostgreSQL driver for the apr-util
+This package provides the PostgreSQL driver for the %{apr}-util
 DBD (database abstraction) interface.
 
 
@@ -81,7 +84,7 @@ BuildRequires: mysql-devel
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Conflicts: %{real_name}-mysql < %{version}
 %description mysql
-This package provides the MySQL driver for the apr-util DBD
+This package provides the MySQL driver for the %{apr}-util DBD
 (database abstraction) interface.
 
 
@@ -92,7 +95,7 @@ BuildRequires: sqlite-devel >= 3.0.0
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Conflicts: %{real_name}-sqlite < %{version}
 %description sqlite
-This package provides the SQLite driver for the apr-util DBD
+This package provides the SQLite driver for the %{apr}-util DBD
 (database abstraction) interface.
 
 
@@ -104,7 +107,7 @@ BuildRequires: freetds-devel
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Conflicts: %{real_name}-freetds < %{version}
 %description freetds
-This package provides the FreeTDS driver for the apr-util DBD
+This package provides the FreeTDS driver for the %{apr}-util DBD
 (database abstraction) interface.
 %endif
 
@@ -116,7 +119,7 @@ BuildRequires: unixODBC-devel
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Conflicts: %{real_name}-odbc < %{version}
 %description odbc
-This package provides the ODBC driver for the apr-util DBD
+This package provides the ODBC driver for the %{apr}-util DBD
 (database abstraction) interface.
 
 
@@ -127,7 +130,7 @@ BuildRequires: openldap-devel
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Conflicts: %{real_name}-ldap < %{version}
 %description ldap
-This package provides the LDAP support for the apr-util.
+This package provides the LDAP support for the %{apr}-util.
 
 
 %package openssl
@@ -137,7 +140,7 @@ BuildRequires: openssl-devel
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Conflicts: %{real_name}-openssl < %{version}
 %description openssl
-This package provides the OpenSSL crypto support for the apr-util.
+This package provides the OpenSSL crypto support for the %{apr}-util.
 
 
 %package nss
@@ -147,7 +150,7 @@ BuildRequires: nss-devel
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Conflicts: %{real_name}-nss < %{version}
 %description nss
-This package provides the NSS crypto support for the apr-util.
+This package provides the NSS crypto support for the %{apr}-util.
 
 
 %prep
@@ -163,7 +166,7 @@ autoheader && autoconf
 # any other warning; force correct result for OpenLDAP:
 export ac_cv_ldap_set_rebind_proc_style=three
 %configure --with-apr=%{_prefix} \
-        --includedir=%{_includedir}/apr-%{apuver} \
+        --includedir=%{_includedir}/%{apr}-%{aprver} \
         --with-ldap=ldap_r --without-gdbm \
         --with-sqlite3 --with-pgsql --with-mysql --with-odbc \
 %if %{with_freetds}
@@ -181,7 +184,7 @@ make %{?_smp_mflags}
 make install DESTDIR=$RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/aclocal
-install -m 644 build/find_apu.m4 $RPM_BUILD_ROOT/%{_datadir}/aclocal
+install -m 644 build/find_apu.m4 $RPM_BUILD_ROOT/%{_datadir}/aclocal/find_%{apu}.m4
 
 # Unpackaged files; remove the static libaprutil
 rm -f $RPM_BUILD_ROOT%{_libdir}/aprutil.exp \
@@ -197,7 +200,7 @@ sed -ri '/^dependency_libs/{s,-l(pq|sqlite[0-9]|rt|dl|uuid) ,,g}' \
       $RPM_BUILD_ROOT%{_libdir}/libapr*.la
 
 # Trim libtool DSO cruft
-rm -f $RPM_BUILD_ROOT%{_libdir}/apr-util-%{apuver}/*.*a
+rm -f $RPM_BUILD_ROOT%{_libdir}/%{apr}-util-%{apuver}/*.*a
 
 
 %check
@@ -220,40 +223,40 @@ export LD_LIBRARY_PATH="`echo "../dbm/.libs:../dbd/.libs:../ldap/.libs:$LD_LIBRA
 
 %files
 %doc CHANGES LICENSE NOTICE
-%{_libdir}/libaprutil-%{apuver}.so.*
-%dir %{_libdir}/apr-util-%{apuver}
+%{_libdir}/lib%{apr}util-%{apuver}.so.*
+%dir %{_libdir}/%{apr}-util-%{apuver}
 
 %files pgsql
-%{_libdir}/apr-util-%{apuver}/apr_dbd_pgsql*
+%{_libdir}/%{apr}-util-%{apuver}/apr_dbd_pgsql*
 
 %files mysql
-%{_libdir}/apr-util-%{apuver}/apr_dbd_mysql*
+%{_libdir}/%{apr}-util-%{apuver}/apr_dbd_mysql*
 
 %files sqlite
-%{_libdir}/apr-util-%{apuver}/apr_dbd_sqlite*
+%{_libdir}/%{apr}-util-%{apuver}/apr_dbd_sqlite*
 
 %if %{with_freetds}
 %files freetds
-%{_libdir}/apr-util-%{apuver}/apr_dbd_freetds*
+%{_libdir}/%{apr}-util-%{apuver}/apr_dbd_freetds*
 %endif
 
 %files odbc
-%{_libdir}/apr-util-%{apuver}/apr_dbd_odbc*
+%{_libdir}/%{apr}-util-%{apuver}/apr_dbd_odbc*
 
 %files ldap
-%{_libdir}/apr-util-%{apuver}/apr_ldap*
+%{_libdir}/%{apr}-util-%{apuver}/apr_ldap*
 
 %files openssl
-%{_libdir}/apr-util-%{apuver}/apr_crypto_openssl*
+%{_libdir}/%{apr}-util-%{apuver}/apr_crypto_openssl*
 
 %files nss
-%{_libdir}/apr-util-%{apuver}/apr_crypto_nss*
+%{_libdir}/%{apr}-util-%{apuver}/apr_crypto_nss*
 
 %files devel
-%{_bindir}/apu-%{apuver}-config
-%{_libdir}/libaprutil-%{apuver}.*a
-%{_libdir}/libaprutil-%{apuver}.so
-%{_includedir}/apr-%{apuver}/*.h
+%{_bindir}/%{apu}-%{apuver}-config
+%{_libdir}/lib%{apr}util-%{apuver}.*a
+%{_libdir}/lib%{apr}util-%{apuver}.so
+%{_includedir}/%{apr}-%{apuver}/*.h
 %{_libdir}/pkgconfig/*.pc
 %{_datadir}/aclocal/*.m4
 
