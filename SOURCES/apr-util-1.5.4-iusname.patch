@@ -1,7 +1,7 @@
 diff -Naur a/apr-util.pc.in b/apr-util.pc.in
---- a/apr-util.pc.in	2008-05-23 16:27:37.000000000 -0500
-+++ b/apr-util.pc.in	2015-02-09 18:28:23.829049907 -0600
-@@ -7,7 +7,7 @@
+--- a/apr-util.pc.in	2015-02-09 18:41:22.826616020 -0600
++++ b/apr-util.pc.in	2015-02-09 18:43:01.661404211 -0600
+@@ -7,8 +7,8 @@
  Name: APR Utils
  Description: Companion library for APR
  Version: @APRUTIL_DOTTED_VERSION@
@@ -9,12 +9,13 @@ diff -Naur a/apr-util.pc.in b/apr-util.pc.in
 -Requires: apr-@APRUTIL_MAJOR_VERSION@
 +# assume that apr15u-util requires libapr15u of same major version
 +Requires: apr15u-@APRUTIL_MAJOR_VERSION@
- Libs: -L${libdir} -l@APRUTIL_LIBNAME@ @LDADD_ldap@ @APRUTIL_EXPORT_LIBS@
+ Libs: -L${libdir} -l@APRUTIL_LIBNAME@ @LDADD_ldap@ 
+ Libs.private: @APRUTIL_EXPORT_LIBS@
  Cflags: -I${includedir}
 diff -Naur a/apu-config.in b/apu-config.in
---- a/apu-config.in	2010-09-29 09:21:25.000000000 -0500
-+++ b/apu-config.in	2015-02-09 15:04:24.881965642 -0600
-@@ -46,7 +46,7 @@
+--- a/apu-config.in	2015-02-09 18:41:10.556890603 -0600
++++ b/apu-config.in	2015-02-09 18:45:08.685561546 -0600
+@@ -47,7 +47,7 @@
  show_usage()
  {
      cat << EOF
@@ -23,7 +24,7 @@ diff -Naur a/apu-config.in b/apu-config.in
  
  Known values for OPTION are:
    --prefix[=DIR]    change prefix to DIR
-@@ -69,9 +69,9 @@
+@@ -70,9 +70,9 @@
    --help            print this help
  
  When linking with libtool, an application should do something like:
@@ -37,7 +38,7 @@ diff -Naur a/apu-config.in b/apu-config.in
  their build process.
 diff -Naur a/build/pkg/pkginfo.in b/build/pkg/pkginfo.in
 --- a/build/pkg/pkginfo.in	2005-01-06 15:39:49.000000000 -0600
-+++ b/build/pkg/pkginfo.in	2015-02-09 16:31:35.590031594 -0600
++++ b/build/pkg/pkginfo.in	2015-02-09 18:45:40.493849714 -0600
 @@ -1,5 +1,5 @@
 -PKG="ASFapu-1"
 -NAME="apr-util"
@@ -48,7 +49,7 @@ diff -Naur a/build/pkg/pkginfo.in b/build/pkg/pkginfo.in
  CATEGORY="application"
 diff -Naur a/configure.in b/configure.in
 --- a/configure.in	2012-08-14 07:20:54.000000000 -0500
-+++ b/configure.in	2015-02-09 15:06:29.664149185 -0600
++++ b/configure.in	2015-02-09 18:47:10.149843306 -0600
 @@ -193,11 +193,11 @@
  AC_SUBST(so_ext)
  AC_SUBST(lib_target)
@@ -81,7 +82,7 @@ diff -Naur a/configure.in b/configure.in
  ])
 diff -Naur a/libaprutil.rc b/libaprutil.rc
 --- a/libaprutil.rc	2013-05-26 19:24:48.000000000 -0500
-+++ b/libaprutil.rc	2015-02-09 15:08:08.167925858 -0600
++++ b/libaprutil.rc	2015-02-09 18:47:36.413255905 -0600
 @@ -18,7 +18,7 @@
  #define APU_DLL_BASENAME APU_STRINGIFY(DLL_NAME) "-" APU_STRINGIFY(APU_MAJOR_VERSION)
  #define APU_DLL_DESCRIPTION "Apache Portable Runtime " APU_STRINGIFY(DLL_NAME) " Module"
@@ -92,8 +93,8 @@ diff -Naur a/libaprutil.rc b/libaprutil.rc
  #endif
  
 diff -Naur a/Makefile.in b/Makefile.in
---- a/Makefile.in	2008-11-21 00:30:43.000000000 -0600
-+++ b/Makefile.in	2015-02-09 15:09:30.400069800 -0600
+--- a/Makefile.in	2015-02-09 18:41:10.555890625 -0600
++++ b/Makefile.in	2015-02-09 18:48:52.564557207 -0600
 @@ -17,8 +17,8 @@
  TARGET_LIB = lib@APRUTIL_LIBNAME@.la
  INSTALL_SUBDIRS = @APR_ICONV_DIR@ @APR_XML_DIR@
