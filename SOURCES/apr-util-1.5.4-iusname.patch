@@ -1,3 +1,16 @@
+diff -Naur a/apr-util.pc.in b/apr-util.pc.in
+--- a/apr-util.pc.in	2008-05-23 16:27:37.000000000 -0500
++++ b/apr-util.pc.in	2015-02-09 18:28:23.829049907 -0600
+@@ -7,7 +7,7 @@
+ Name: APR Utils
+ Description: Companion library for APR
+ Version: @APRUTIL_DOTTED_VERSION@
+-# assume that apr-util requires libapr of same major version
+-Requires: apr-@APRUTIL_MAJOR_VERSION@
++# assume that apr15u-util requires libapr15u of same major version
++Requires: apr15u-@APRUTIL_MAJOR_VERSION@
+ Libs: -L${libdir} -l@APRUTIL_LIBNAME@ @LDADD_ldap@ @APRUTIL_EXPORT_LIBS@
+ Cflags: -I${includedir}
 diff -Naur a/apu-config.in b/apu-config.in
 --- a/apu-config.in	2010-09-29 09:21:25.000000000 -0500
 +++ b/apu-config.in	2015-02-09 15:04:24.881965642 -0600
