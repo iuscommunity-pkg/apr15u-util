@@ -157,7 +157,8 @@ autoheader && autoconf
 # A fragile autoconf test which fails if the code trips
 # any other warning; force correct result for OpenLDAP:
 export ac_cv_ldap_set_rebind_proc_style=three
-%configure --with-apr=%{_prefix} \
+%configure \
+        --with-apr=%{_bindir}/%{apr}-%{aprver}-config \
         --includedir=%{_includedir}/%{apr}-%{aprver} \
         --with-ldap=ldap_r --without-gdbm \
         --with-sqlite3 --with-pgsql --with-mysql --with-odbc \
