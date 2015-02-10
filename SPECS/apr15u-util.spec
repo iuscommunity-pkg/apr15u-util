@@ -21,7 +21,7 @@
 Summary: Apache Portable Runtime Utility library
 Name: %{apr}-util
 Version: 1.5.4
-Release: 2.ius%{?dist}
+Release: 3.ius%{?dist}
 License: ASL 2.0
 Group: System Environment/Libraries
 URL: http://apr.apache.org/
@@ -255,6 +255,10 @@ export LD_LIBRARY_PATH="`echo "../dbm/.libs:../dbd/.libs:../ldap/.libs:$LD_LIBRA
 
 
 %changelog
+* Mon Feb 09 2015 Carl George <carl.george@rackspace.com> - 1.5.4-3.ius
+- Add patch5 to rename all the things
+- Remove conflicts to allow parallel install with stock apr-util
+
 * Thu Jan 08 2015 Carl George <carl.george@rackspace.com> - 1.5.4-2.ius
 - Remove extra provides to correct dependency resolution
 - Explictly require the IUS versions of apr and apr-devel
